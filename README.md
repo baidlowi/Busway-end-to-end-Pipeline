@@ -1,4 +1,5 @@
 # <p align="center"><strong>TransJakarta Data end-to-end Pipeline</strong><p>
+<a target="_blank">[![TransJakarta Map](https://github.com/baidlowi/Data-end-to-end-Pipeline/assets/79616397/709c5b8a-f586-4eea-abb6-dc1befc86fac)](https://transjakarta.co.id/peta-rute/)</a>
 
 ## Problem Definition
 **A Bus Rapid Transit (BRT) System** is a high-capacity, high-frequency bus system that uses dedicated lanes and stations to provide a fast and efficient alternative to private cars. BRT systems have been shown to be effective in reducing traffic congestion, improving air quality, and increasing access to public transportation.
@@ -39,7 +40,7 @@ A data pipeline in this case is a set of processes that are used to collect, pro
 1. Install `gcloud SDK`, `terraform`, and create a GCP project. 
 2. Create a service account with **Storage Admin**, **Storage Pbject Admin**, **BigQuery Admin** role. 
 3. Create and Download the JSON credential and store it on `.google/credentials/google_credential.json`
-4. Edit `1-terraform/main.tf` in a text editor, and change `de-1199` with GCP's project id.
+4. Edit `1-terraform/main.tf` in a text editor, and change `de-1199` with your GCP's project id.
 5. Move directory to `1-terraform` by executing
     ```
     cd 1-terraform
@@ -106,6 +107,7 @@ A data pipeline in this case is a set of processes that are used to collect, pro
 ```
 docker-compose down
 ```
+***
 
-### Data Engineering Zoomcamp by DataTalksClub
-https://github.com/DataTalksClub/data-engineering-zoomcamp
+<p align="center"><i>Credit from Data Engineering Zoomcamp by DataTalksClub</i>
+<i>https://github.com/DataTalksClub/data-engineering-zoomcamp</i></p>

@@ -1,5 +1,6 @@
 # <p align="center"><strong>TransJakarta Data end-to-end Pipeline</strong><p>
-<a target="_blank">[![TransJakarta Map](https://github.com/baidlowi/Data-end-to-end-Pipeline/assets/79616397/709c5b8a-f586-4eea-abb6-dc1befc86fac)](https://transjakarta.co.id/peta-rute/)</a>
+<a target="_blank">[![TransJakarta Mapping](https://github.com/baidlowi/Data-end-to-end-Pipeline/assets/79616397/b2813354-51e0-438e-ab26-ace62ac7f595)](https://transjakarta.co.id/peta-rute/)</a>
+
 
 ## Problem Definition
 **A Bus Rapid Transit (BRT) System** is a high-capacity, high-frequency bus system that uses dedicated lanes and stations to provide a fast and efficient alternative to private cars. BRT systems have been shown to be effective in reducing traffic congestion, improving air quality, and increasing access to public transportation.
@@ -17,11 +18,10 @@ The data collected from buses can be used to improve the efficiency of the buswa
 
 ## Solution Overview
 
-![Untitled (100 × 100 cm)](https://user-images.githubusercontent.com/79616397/230957215-4daeeadb-353e-431e-95df-3243d1a9bfa1.png)
-
 A data pipeline in this case is a set of processes that are used to collect, process, and store data. By collecting data from a variety of sources point area and storing it in a central location, data pipelines make it easier to access and analyze data. This can help TransJakarta bussiness to make better decisions by providing them with a better understanding of customers, operations, and  markets.
 
-
+![Batch Data Architechture](https://github.com/baidlowi/Data-end-to-end-Pipeline/assets/79616397/da652d33-1c6f-4ea8-89c6-807945b6309e)
+    
 ### Tools
 - **Google Cloud Platform** (GCP): Cloud-based auto-scaling platform by Google
 - **Google Cloud Storage** (GCS): Data Lake
@@ -40,10 +40,10 @@ A data pipeline in this case is a set of processes that are used to collect, pro
 1. Install `gcloud SDK`, `terraform`, and create a GCP project. 
 2. Create a service account with **Storage Admin**, **Storage Pbject Admin**, **BigQuery Admin** role. 
 3. Create and Download the JSON credential and store it on `.google/credentials/google_credential.json`
-4. Edit `1-terraform/main.tf` in a text editor, and change `de-1199` with your GCP's project id.
-5. Move directory to `1-terraform` by executing
+4. Edit `1-Terraform/main.tf` in a text editor, and change `de-1199` with your GCP's project id.
+5. Move directory to `1-Terraform` by executing
     ```
-    cd 1-terraform
+    cd 1-Terraform
     ```
 6. Initialize Terraform (set up environment and install Google provider)
     ```
@@ -59,27 +59,47 @@ A data pipeline in this case is a set of processes that are used to collect, pro
     ```
 9. Check GCP console to see newly-created resource `GCS Bucket`, `Big Query Dataset`, and `Virtual Machine`.
 
-  
-### Part 2: Run Prefect to Scrape, Ingest, and Warehouse Data
+### Setup DBT Cloud
+1. Create account in https://www.getdbt.com/signup/ and new project dbt
+2. Create **Name Project** dbt and **Choose Connection** to `Big Query`
+    ![image](https://github.com/baidlowi/Data-end-to-end-Pipeline/assets/79616397/5b618bd5-901d-492f-9bcb-675d9f852b29)
+    
+3. In **Configure Environment**, upload your GCP credential .JSON then test connection
+    ![image](https://github.com/baidlowi/Data-end-to-end-Pipeline/assets/79616397/f4941556-3012-47e3-977d-36a8d166bdc2)
+    
+4. In **Setup Repository**, choose your github project
+    ![image](https://github.com/baidlowi/Data-end-to-end-Pipeline/assets/79616397/581983ab-8e06-4a18-8e2a-05ba1b43a3ac)
+    
+5. **Start Develooping in the IDE**, then initialize dbt project and commit to github
+    ![image](https://github.com/baidlowi/Data-end-to-end-Pipeline/assets/79616397/93ba5043-b43a-46b6-83d6-9bfa6759da65)
+   
+5. Back to **Dashboard**, select project and copy `Deploy Key` in **Repository Details**
+    ![image](https://github.com/baidlowi/Data-end-to-end-Pipeline/assets/79616397/ede5928b-03ad-442b-b108-7fc2fc526fc5)
+    
+6. Open **Github Repository** then add new deploy keys
+    ![image](https://github.com/baidlowi/Data-end-to-end-Pipeline/assets/79616397/cc0002c9-31d4-42e2-8d6e-b4eadf5dfe27)
+    
+### Part 2: Run Workflow on Virtual Machine to Scrape, Ingest, and Manipulation Data
 1. Go to source directory
     ```
     cd ..
     ```
-2. Then, replace `de-1199` in `.env` file to project ID.
+2. Then, replace `de-1199` in `.env` file to your project ID.
 
-3. Build Prefect docker images
+3. Build docker image
     ```
     docker-compose build
     ```
-4. Run Prefect docker containers
+4. Run docker container
     ```
     docker-compose up
     ```
-5. Access the Prefect webserver through web browser on `localhost:4200` c
+
+5. Access the Prefect webserver through web browser on [http://localhost:4200](http://localhost:4200)
 6. Create block **GCS Bucket** (with name your GCS Bucket) and **GCS Credentials** (from file `google_credential.json`)
-6. Run Workflow `parent-workflow.py` and schedule it in every night
+6. Run Workflow `etl-to-gcs.py` and schedule it in every night
     ```
-    prefect deployment build parent-workflow.py:etl_parent_flow -n "Parameterized ETL"
+    prefect deployment build 2-Prefect Workflow/etl-to-gcs.py:etl_to_gcs -n "Ingest data to GCS"
     ```
     ![image](https://user-images.githubusercontent.com/79616397/230938319-f8cab849-eb08-4fa4-8c43-86b6c89b4b73.png)
     ![image](https://user-images.githubusercontent.com/79616397/230957720-77728d87-2bcd-41cc-82d9-235a6f395852.png)
@@ -99,14 +119,13 @@ A data pipeline in this case is a set of processes that are used to collect, pro
 1. Open Looker Website or Tableau Desktop, and connect to BigQuery.
 2. Authorize credentials service aaccount from `google_credential.json`
 2. Visualize the dashboard, publish to Public.
-
-![image](https://user-images.githubusercontent.com/79616397/230955196-088a05e8-9d5e-49ec-a67a-404e7f638df0.png)
+    ![image](https://user-images.githubusercontent.com/79616397/230955196-088a05e8-9d5e-49ec-a67a-404e7f638df0.png)
 
 ### Part 4: Stopping Project
 1. To shut down the project, just stop the docker container
-```
-docker-compose down
-```
+    ```
+    docker-compose down
+    ```
 ***
 
 <p align="center"><i>Credit from Data Engineering Zoomcamp by DataTalksClub</i>

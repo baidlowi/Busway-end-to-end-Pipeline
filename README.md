@@ -110,9 +110,24 @@ A data pipeline in this case is a set of processes that are used to collect, pro
     ```
 
 7. After done, check GCP Console, then both in Google Cloud Storage and BigQuery to check the data.
-
-    ![image](https://user-images.githubusercontent.com/79616397/230944184-a4f75913-d9fa-435a-b96b-913ac681b1ca.png)
-    ![image](https://user-images.githubusercontent.com/79616397/230944066-989c1113-71dc-4726-927c-4f0d195d2e03.png)
+    ![image](https://github.com/baidlowi/Data-end-to-end-Pipeline/assets/79616397/7c86e73a-f2fb-4273-83b0-98a4b370f354)
+ 
+8. Create folder `code` and upload `spark-to-bigquery.py` to this folder
+    
+9. Run Spark in shell GCP for loading data to Big Query
+    '''
+    gcloud dataproc jobs submit pyspark \
+    --cluster=cluster-7ec7 \
+    --region=us-central1 \
+    --jars=gs://spark-lib/bigquery/spark-bigquery-latest_2.12.jar \
+    gs://data-spark11/code/spark-to-bigquery.py \
+    -- \
+        --input=gs://data-spark11/data/* \
+        --output=databusway.passengerrecords
+    ```
+ 
+9. Open Big Query and we can see our data
+    ![image](https://github.com/baidlowi/Data-end-to-end-Pipeline/assets/79616397/00e35619-2e26-40b9-bdb8-3eea2a56426e)
 
 
 ### Part 3: Visualize Data

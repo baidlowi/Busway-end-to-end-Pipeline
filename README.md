@@ -20,7 +20,7 @@ The data collected from buses can be used to improve the efficiency of the buswa
 
 A data pipeline in this case is a set of processes that are used to collect, process, and store data. By collecting data from a variety of sources point area and storing it in a central location, data pipelines make it easier to access and analyze data. This can help TransJakarta bussiness to make better decisions by providing them with a better understanding of customers, operations, and  markets.
 
-![Batch Data Architechture](https://github.com/baidlowi/Data-end-to-end-Pipeline/assets/79616397/da652d33-1c6f-4ea8-89c6-807945b6309e)
+![Batch Data Architechture](https://github.com/baidlowi/Data-end-to-end-Pipeline/assets/79616397/a90e3547-e1e2-4d97-9df9-b2ca77961f8a)
     
 ### Tools
 - **Google Cloud Platform** (GCP): Cloud-based auto-scaling platform by Google
@@ -29,7 +29,7 @@ A data pipeline in this case is a set of processes that are used to collect, pro
 - **Terraform**: Infrastructure-as-Code (IaC)
 - **Docker**: Containerization
 - **Prefect**: Workflow Orchestration
-- **DBT**: Data Transformation
+- **Apache Spark**: Data Processing and Transformation
 
 ***
 
@@ -58,26 +58,6 @@ A data pipeline in this case is a set of processes that are used to collect, pro
     terraform apply
     ```
 9. Check GCP console to see newly-created resource `GCS Bucket`, `Big Query Dataset`, and `Virtual Machine`.
-
-### Setup DBT Cloud
-1. Create account in https://www.getdbt.com/signup/ and new project dbt
-2. Create **Name Project** dbt and **Choose Connection** to `Big Query`
-    ![image](https://github.com/baidlowi/Data-end-to-end-Pipeline/assets/79616397/5b618bd5-901d-492f-9bcb-675d9f852b29)
-    
-3. In **Configure Environment**, upload your GCP credential .JSON then test connection
-    ![image](https://github.com/baidlowi/Data-end-to-end-Pipeline/assets/79616397/f4941556-3012-47e3-977d-36a8d166bdc2)
-    
-4. In **Setup Repository**, choose your github project
-    ![image](https://github.com/baidlowi/Data-end-to-end-Pipeline/assets/79616397/581983ab-8e06-4a18-8e2a-05ba1b43a3ac)
-    
-5. **Start Develooping in the IDE**, then initialize dbt project and commit to github
-    ![image](https://github.com/baidlowi/Data-end-to-end-Pipeline/assets/79616397/93ba5043-b43a-46b6-83d6-9bfa6759da65)
-   
-5. Back to **Dashboard**, select project and copy `Deploy Key` in **Repository Details**
-    ![image](https://github.com/baidlowi/Data-end-to-end-Pipeline/assets/79616397/ede5928b-03ad-442b-b108-7fc2fc526fc5)
-    
-6. Open **Github Repository** then add new deploy keys
-    ![image](https://github.com/baidlowi/Data-end-to-end-Pipeline/assets/79616397/cc0002c9-31d4-42e2-8d6e-b4eadf5dfe27)
     
 ### Part 2: Run Workflow on Virtual Machine to Scrape, Ingest, and Manipulation Data
 1. Go to source directory
@@ -115,7 +95,7 @@ A data pipeline in this case is a set of processes that are used to collect, pro
 8. Create folder `code` and upload `spark-to-bigquery.py` to this folder
     
 9. Run Spark in shell GCP for loading data to Big Query
-    '''
+    ```
     gcloud dataproc jobs submit pyspark \
     --cluster=cluster-7ec7 \
     --region=us-central1 \
@@ -133,9 +113,10 @@ A data pipeline in this case is a set of processes that are used to collect, pro
 ### Part 3: Visualize Data
 1. Open Looker Website or Tableau Desktop, and connect to BigQuery.
 2. Authorize credentials service aaccount from `google_credential.json`
-2. Visualize the dashboard, publish to Public.
-    ![image](https://user-images.githubusercontent.com/79616397/230955196-088a05e8-9d5e-49ec-a67a-404e7f638df0.png)
-
+2. Visualize the dashboard and publish to Tableau Public.
+    ![image](https://github.com/baidlowi/Data-end-to-end-Pipeline/assets/79616397/84e20830-f775-47d0-8f94-1fd800cef21e)
+    > <i>Tableau Public: https://public.tableau.com/app/profile/hasyim2598/viz/TransjakartaPassengers/Dashboard</i>
+    
 ### Part 4: Stopping Project
 1. To shut down the project, just stop the docker container
     ```

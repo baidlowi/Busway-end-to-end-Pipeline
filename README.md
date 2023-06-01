@@ -64,19 +64,17 @@ A data pipeline in this case is a set of processes that are used to collect, pro
     ```
     cd ..
     ```
-2. Then, replace `de-1199` in `.env` file to your project ID.
-
-3. Build docker image
+2. Build docker image
     ```
     docker-compose build
     ```
-4. Run docker container
+3. Run docker container
     ```
     docker-compose up
     ```
 
-5. Access the Prefect webserver through web browser on [http://localhost:4200](http://localhost:4200)
-6. Create block **GCS Bucket** (with name your GCS Bucket) and **GCS Credentials** (from file `google_credential.json`)
+4. Access the Prefect webserver through web browser on [http://localhost:4200](http://localhost:4200)
+5. Create block **GCS Bucket** (with name your GCS Bucket) and **GCS Credentials** (from file `google_credential.json`)
 6. Run Workflow `etl-to-gcs.py` and schedule it in every night
     ```
     prefect deployment build 2-Prefect Workflow/etl-to-gcs.py:etl_to_gcs -n "Ingest data to GCS"
@@ -84,17 +82,17 @@ A data pipeline in this case is a set of processes that are used to collect, pro
     ![image](https://user-images.githubusercontent.com/79616397/230938319-f8cab849-eb08-4fa4-8c43-86b6c89b4b73.png)
     ![image](https://user-images.githubusercontent.com/79616397/230957720-77728d87-2bcd-41cc-82d9-235a6f395852.png)
 
-6. Run prefect agent to start queue schedule
+7. Run prefect agent to start queue schedule
     ```
     prefect agent start --work-queue "default" 
     ```
 
-7. After done, check GCP Console, then both in Google Cloud Storage and BigQuery to check the data.
+8. After done, check GCP Console, then both in Google Cloud Storage and BigQuery to check the data.
     ![image](https://github.com/baidlowi/Data-end-to-end-Pipeline/assets/79616397/7c86e73a-f2fb-4273-83b0-98a4b370f354)
  
-8. Create folder `code` and upload `spark-to-bigquery.py` to this folder
+9. Create folder `code` and upload `spark-to-bigquery.py` to this folder
     
-9. Run Spark in shell GCP for loading data to Big Query
+10. Run Spark in shell GCP for loading data to Big Query
     ```
     gcloud dataproc jobs submit pyspark \
     --cluster=cluster-7ec7 \

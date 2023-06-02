@@ -112,7 +112,7 @@ A data pipeline in this case is a set of processes that are used to collect, pro
 1. Open Looker Website or Tableau Desktop, and connect to BigQuery.
 2. Authorize credentials service aaccount from `google_credential.json`
 2. Visualize the dashboard and publish to Tableau Public.
-    ![image](https://github.com/baidlowi/Data-end-to-end-Pipeline/assets/79616397/84e20830-f775-47d0-8f94-1fd800cef21e)
+    ![Dashboard Passenger Transjakarta](https://github.com/baidlowi/Data-end-to-end-Pipeline/assets/79616397/bb857168-c5f5-4932-bb70-d56286ab292e)
     > <i>Tableau Public: https://public.tableau.com/app/profile/hasyim2598/viz/TransjakartaPassengers/Dashboard</i>
     
 ### Part 4: Stopping Project
@@ -122,5 +122,5 @@ A data pipeline in this case is a set of processes that are used to collect, pro
     ```
 ***
 
-<p align="center"><i>Credit from Data Engineering Zoomcamp by DataTalksClub</i>
+<p align="center"><i>Credit from Data Engineering Zoomcamp by DataTalksClub</i><br>
 <i>https://github.com/DataTalksClub/data-engineering-zoomcamp</i></p>

@@ -67,7 +67,7 @@ def etl_web_to_gcs(year: int, months: list):
 
 if __name__ == '__main__':
     year = 2021
-#    months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','Oktober','November','Desember']
-    months = ['Januari', 'Februari', 'Maret']
+    months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','Oktober','November','Desember']
+#    months = ['Januari', 'Februari', 'Maret']
 
     etl_web_to_gcs(year,months)

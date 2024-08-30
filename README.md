@@ -1,4 +1,4 @@
-# <p align="center"><strong>TransJakarta Data end-to-end Pipeline</strong><p>
+# <p align="center"><strong>TransJakarta Data end-to-end Pipeline</strong> [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fbaidlowi%2FData-end-to-end-Pipeline&count_bg=%2379C83D&title_bg=%23555555&icon=buzzfeed.svg&icon_color=%23E7E7E7&title=views&edge_flat=false)](https://hits.seeyoufarm.com)</p> 
 <a target="_blank">[![TransJakarta Mapping](https://github.com/baidlowi/Data-end-to-end-Pipeline/assets/79616397/b2813354-51e0-438e-ab26-ace62ac7f595)](https://transjakarta.co.id/peta-rute/)</a>
 
 

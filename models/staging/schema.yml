@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+    - name: stagging
+      description: "Stagging data passenger"
+      database: de-1199
+      schema: data-busway
+
+      tables:
+          - name: passenger_records
